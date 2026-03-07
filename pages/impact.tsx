@@ -147,7 +147,18 @@ export default function ImpactPage() {
                                 No items scanned today yet.
                             </div>
                         )}
-                        <button className="w-full mt-6 py-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-bold rounded-xl flex items-center justify-center gap-2 transition-colors">
+                        <button
+                            onClick={async () => {
+                                const text = `I correctly recycled ${stats?.todayRecyclable || 0} items today with EcoSort AI, saving ${stats?.co2Saved || 0}kg of CO2! Join the movement! 🌍♻️`;
+                                if (navigator.share) {
+                                    try { await navigator.share({ title: 'My EcoSort Impact', text, url: window.location.origin }); }
+                                    catch (err) { console.error("Share failed", err); }
+                                } else {
+                                    await navigator.clipboard.writeText(text + " " + window.location.origin);
+                                    alert("Impact facts copied to clipboard!");
+                                }
+                            }}
+                            className="w-full mt-6 py-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-bold rounded-xl flex items-center justify-center gap-2 transition-colors">
                             <Share2 className="w-4 h-4" /> Share Today's Impact
                         </button>
                     </div>

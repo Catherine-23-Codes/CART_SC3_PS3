@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Leaf, BarChart2, MapPin, Award, Home } from 'lucide-react';
+import { Leaf, BarChart2, MapPin, Award, Home, Bot, Lightbulb } from 'lucide-react';
 
 export default function Navbar() {
     const router = useRouter();
@@ -24,9 +24,10 @@ export default function Navbar() {
     const navItems = [
         { name: 'Home', path: '/', icon: <Home className="w-5 h-5" /> },
         { name: 'Analytics', path: '/analytics', icon: <BarChart2 className="w-5 h-5" /> },
+        { name: 'AI Chatbot', path: '/chatbot', icon: <Bot className="w-5 h-5" /> },
         { name: 'Heatmap', path: '/heatmap', icon: <MapPin className="w-5 h-5" /> },
-        { name: 'Impact', path: '/impact', icon: <Leaf className="w-5 h-5" /> },
         { name: 'Recycling Centers', path: '/recycling-centers', icon: <MapPin className="w-5 h-5" /> },
+        { name: 'Second Life Ideas', path: '/second-life', icon: <Lightbulb className="w-5 h-5" /> },
         { name: 'Eco Points', path: '/eco-points', icon: <Award className="w-5 h-5" /> },
     ];
 

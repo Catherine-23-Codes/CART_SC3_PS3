@@ -63,6 +63,54 @@
       "confidence": 0.9391,
       "location": "Unknown",
       "timestamp": "2026-03-07T04:54:57.774Z"
+    },
+    {
+      "id": "1772863273199",
+      "image": "image-1772863272752-672230445.png",
+      "category": "Non-Recyclable",
+      "confidence": 0.9249,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T06:01:13.199Z"
+    },
+    {
+      "id": "1772863537361",
+      "image": "image-1772863537291-921858700.png",
+      "category": "Non-Recyclable",
+      "confidence": 0.864,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T06:05:37.361Z"
+    },
+    {
+      "id": "1772864999797",
+      "image": "image-1772864999517-754739854.png",
+      "category": "E-Waste",
+      "confidence": 0.8689,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T06:29:59.797Z"
+    },
+    {
+      "id": "1772865047115",
+      "image": "image-1772865047068-776965967.png",
+      "category": "Metal",
+      "confidence": 0.9071,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T06:30:47.115Z"
+    },
+    {
+      "id": "1772865085712",
+      "image": "image-1772865085632-204102898.png",
+      "category": "Paper",
+      "confidence": 0.8595,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T06:31:25.712Z"
+    },
+    {
+      "id": "1772865121530",
+      "image": "image-1772865121467-926277533.png",
+      "category": "Organic",
+      "confidence": 0.9498,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T06:32:01.530Z"
     }
   ],
   "eco_points": [
@@ -114,6 +162,48 @@
       "points": 10,
       "action": "upload_waste",
       "date": "2026-03-07T04:54:57.786Z"
+    },
+    {
+      "id": "1772863273260",
+      "userId": "1772859132582",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T06:01:13.260Z"
+    },
+    {
+      "id": "1772863537373",
+      "userId": "1772859132582",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T06:05:37.373Z"
+    },
+    {
+      "id": "1772864999809",
+      "userId": "1772859132582",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T06:29:59.809Z"
+    },
+    {
+      "id": "1772865047125",
+      "userId": "1772859132582",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T06:30:47.125Z"
+    },
+    {
+      "id": "1772865085723",
+      "userId": "1772859132582",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T06:31:25.723Z"
+    },
+    {
+      "id": "1772865121542",
+      "userId": "1772859132582",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T06:32:01.542Z"
     }
   ],
   "users": [
@@ -134,7 +224,7 @@
       "name": "AISHWARYA AMIN",
       "email": "aishwaryaamin.cse@skit.org.in",
       "googleId": "105442649118369135068",
-      "ecoPoints": 20
+      "ecoPoints": 80
     }
   ]
 }
