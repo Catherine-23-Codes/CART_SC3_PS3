@@ -1,0 +1,140 @@
+{
+  "wastes": [
+    {
+      "id": "1772849711915",
+      "image": "image-1772849711075-664989682.jpg",
+      "category": "Paper",
+      "confidence": 0.8682196404530907,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T02:15:11.915Z"
+    },
+    {
+      "id": "1772850354692",
+      "image": "image-1772850353874-663545354.jpg",
+      "category": "Glass",
+      "confidence": 0.8763522226354388,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T02:25:54.692Z"
+    },
+    {
+      "id": "1772850523071",
+      "image": "image-1772850522254-981476825.jpg",
+      "category": "Plastic",
+      "confidence": 0.8515790898476608,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T02:28:43.071Z"
+    },
+    {
+      "id": "1772850716504",
+      "image": "image-1772850715672-520050598.png",
+      "category": "Glass",
+      "confidence": 0.9234112851624352,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T02:31:56.504Z"
+    },
+    {
+      "id": "1772853333888",
+      "image": "image-1772853333068-191856170.png",
+      "category": "Metal",
+      "confidence": 0.8877777260162443,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T03:15:33.888Z"
+    },
+    {
+      "id": "1772854720616",
+      "image": "image-1772854719791-817493368.png",
+      "category": "Glass",
+      "confidence": 0.8942101068027023,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T03:38:40.616Z"
+    },
+    {
+      "id": "1772859201879",
+      "image": "image-1772859201792-167735353.png",
+      "category": "Metal",
+      "confidence": 0.8948,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T04:53:21.879Z"
+    },
+    {
+      "id": "1772859297774",
+      "image": "image-1772859297724-350566592.png",
+      "category": "Glass",
+      "confidence": 0.9391,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T04:54:57.774Z"
+    }
+  ],
+  "eco_points": [
+    {
+      "id": "1772849813984",
+      "userId": "default_user",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T02:16:53.984Z"
+    },
+    {
+      "id": "1772850523086",
+      "userId": "default_user",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T02:28:43.086Z"
+    },
+    {
+      "id": "1772850716521",
+      "userId": "default_user",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T02:31:56.521Z"
+    },
+    {
+      "id": "1772853333904",
+      "userId": "default_user",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T03:15:33.904Z"
+    },
+    {
+      "id": "1772854720634",
+      "userId": "default_user",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T03:38:40.634Z"
+    },
+    {
+      "id": "1772859201895",
+      "userId": "1772859132582",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T04:53:21.895Z"
+    },
+    {
+      "id": "1772859297786",
+      "userId": "1772859132582",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T04:54:57.786Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "default_user",
+      "email": "default_user@eco.com",
+      "ecoPoints": 50
+    },
+    {
+      "id": "1772856105908",
+      "name": "Test User",
+      "email": "test@test.com",
+      "password": "password123",
+      "ecoPoints": 0
+    },
+    {
+      "id": "1772859132582",
+      "name": "AISHWARYA AMIN",
+      "email": "aishwaryaamin.cse@skit.org.in",
+      "googleId": "105442649118369135068",
+      "ecoPoints": 20
+    }
+  ]
+}

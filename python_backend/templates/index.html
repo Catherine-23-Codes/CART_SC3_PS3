@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Waste Classifier</title>
+    <!-- Importing a clean, modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-eco: #10b981;
+            --secondary-eco: #059669;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--primary-eco);
+            margin-bottom: 1rem;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .upload-section {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-section:hover, .upload-section.dragover {
+            border-color: var(--primary-eco);
+            background-color: #f0fdf4;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .upload-btn {
+            background-color: var(--primary-eco);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .upload-btn:hover {
+            background-color: var(--secondary-eco);
+        }
+
+        #preview {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .result-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 0.5rem;
+        }
+
+        .result-item span:first-child {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .result-item span:last-child {
+            font-weight: 800;
+        }
+
+        .category { color: var(--primary-eco); }
+        .loading {
+            display: none;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>AI Waste Classifier</h1>
+        <p class="subtitle">Upload an image instantly to analyze waste type</p>
+
+        <div class="upload-section" id="drop-zone">
+            <p>Drag & drop your item image here or</p>
+            <label class="upload-btn">
+                Browse Files
+                <input type="file" id="imageInput" accept="image/*">
+            </label>
+            <img id="preview" alt="Image Preview">
+        </div>
+
+        <div class="loading" id="loader">Analyzing image... please wait...</div>
+
+        <div class="result-box" id="resultBox">
+            <div class="result-item">
+                <span>Category</span>
+                <span class="category" id="resCategory">-</span>
+            </div>
+            <div class="result-item">
+                <span>Confidence</span>
+                <span id="resConfidence">-</span>
+            </div>
+            <div class="result-item" style="border-bottom: none; display:block;">
+                <span style="display:block; margin-bottom: 5px;">Recycling Tip:</span>
+                <span id="resTip" style="font-weight: 400; font-size: 0.9rem; color:#475569;">-</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const preview = document.getElementById('preview');
+        const loader = document.getElementById('loader');
+        const resultBox = document.getElementById('resultBox');
+        
+        // Listeners for file upload automatically triggers classification
+        imageInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                
+                // Read and set preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+
+                // Start classification process
+                classifyImage(file);
+            }
+        });
+
+        async function classifyImage(file) {
+            // Setup UI states
+            loader.style.display = 'block';
+            resultBox.style.display = 'none';
+
+            // Create form payload
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                // Fetch directly to the Flask Backend API endpoint
+                const response = await fetch('/api/classify', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Prediction failed');
+                }
+
+                // Update UI results
+                document.getElementById('resCategory').textContent = data.category;
+                document.getElementById('resConfidence').textContent = `${data.confidence}%`;
+                document.getElementById('resTip').textContent = data.tip;
+                
+                resultBox.style.display = 'block';
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

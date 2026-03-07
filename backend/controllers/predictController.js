@@ -1,41 +1,47 @@
-import { getPredictionFromAI } from '../config/aiService.js';
-
-// Simple mock database for dashboard statistics
-let dashboardStats = {
-  totalScanned: 0,
-  classes: {
-    Plastic: 0,
-    Paper: 0,
-    Glass: 0,
-    Organic: 0,
-    Metal: 0
-  }
-};
+import fs from 'fs';
+import { getPredictionFromModel } from '../services/aiPredictionService.js';
+import { incrementWasteCount, incrementRecyclable, addCO2Saved } from '../dashboard/statsStore.js';
+import { logInfo, logError } from '../utils/logger.js';
 
 export const predictWaste = async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ error: 'Image upload fails: No image provided' });
+      logError("Image upload failed: No image provided");
+      return res.status(400).json({ error: 'Image upload failed: No image provided' });
     }
 
-    // Call AI prediction service
-    const predictionResult = await getPredictionFromAI(req.file.buffer, req.file.originalname);
+    logInfo(`Processing uploaded image: ${req.file.path}`);
+
+    // Call AI prediction service using the temp file path
+    const predictionResult = await getPredictionFromModel(req.file.path);
 
     // Update dashboard statistics
-    dashboardStats.totalScanned += 1;
-    if (dashboardStats.classes[predictionResult.class] !== undefined) {
-       dashboardStats.classes[predictionResult.class] += 1;
+    incrementWasteCount(predictionResult.class);
+    
+    // Simple logic: say Plastic, Paper, Metal, Glass are recyclable
+    if (['Plastic', 'Paper', 'Metal', 'Glass'].includes(predictionResult.class)) {
+      incrementRecyclable();
+      addCO2Saved(Math.random() * 2); // Save some arbitrary CO2 value per item
     }
 
     // Return JSON response to frontend
     res.json({
       class: predictionResult.class,
-      confidence: predictionResult.confidence,
-      _stats: dashboardStats // Sending stats just for visibility
+      confidence: predictionResult.confidence
     });
 
   } catch (error) {
-    console.error('Prediction controller error:', error);
+    logError(`Prediction controller error: ${error.message}`);
     res.status(503).json({ error: error.message || 'AI model is unavailable' });
+  } finally {
+    // Clean up temporary image
+    if (req.file && fs.existsSync(req.file.path)) {
+      try {
+        fs.unlinkSync(req.file.path);
+        logInfo(`Deleted temporary file: ${req.file.path}`);
+      } catch (err) {
+        logError(`Failed to delete temp file: ${err.message}`);
+      }
+    }
   }
 };

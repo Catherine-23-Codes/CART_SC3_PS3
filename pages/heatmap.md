@@ -1,0 +1,4 @@
+- Displays the Community Waste Heatmap
+- Uses Leaflet.js to render the map
+- Fetch heatmap data from backend API
+- Include filters for waste types

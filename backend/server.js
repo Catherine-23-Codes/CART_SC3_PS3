@@ -6,7 +6,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`EcoSort AI Server started on port ${PORT}`);
+    console.log(`EcoSort AI Server started on port ${PORT}`);
 }).on('error', (err) => {
-  console.error("Failed to start server:", err.message);
+    console.error("Failed to start server:", err.message);
 });

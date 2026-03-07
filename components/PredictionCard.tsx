@@ -1,15 +1,18 @@
 import React from 'react';
+import { Volume2 } from 'lucide-react';
 
 interface Prediction {
     type: string;
     confidence: number;
     method: string;
+    tips?: string[];
 }
 
 interface PredictionCardProps {
     imagePreview: string | null;
     prediction: Prediction | null;
     isLoading?: boolean;
+    errorMsg?: string | null;
 }
 
 const typeColors: Record<string, string> = {
@@ -26,7 +29,20 @@ const methodColors: Record<string, string> = {
     Trash: 'bg-red-500 text-white',
 };
 
-export default function PredictionCard({ imagePreview, prediction, isLoading }: PredictionCardProps) {
+export default function PredictionCard({ imagePreview, prediction, isLoading, errorMsg }: PredictionCardProps) {
+    const handleVoiceGuidance = () => {
+        if (!prediction) return;
+        const text = `This waste is ${prediction.type}. Please put it in the ${prediction.method.toLowerCase()} bin. ${prediction.tips ? prediction.tips.join('. ') : ''}`;
+
+        // Ensure that speech synthesis is supported
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Sorry, your browser doesn't support text to speech!");
+        }
+    };
+
     return (
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-full flex flex-col">
             <h3 className="text-xl font-bold text-gray-800 mb-4">AI Prediction</h3>
@@ -62,12 +78,35 @@ export default function PredictionCard({ imagePreview, prediction, isLoading }: 
                             <span className="font-bold text-gray-800 text-lg">{prediction.confidence.toFixed(1)}%</span>
                         </div>
 
-                        <div className="flex flex-col gap-2 pt-2">
+                        <div className="flex flex-col gap-2 pt-2 border-b border-gray-200 pb-3">
                             <span className="text-gray-600 text-sm font-medium">Recommended Action</span>
                             <span className={`px-4 py-3 text-center rounded-xl font-bold shadow-sm ${methodColors[prediction.method] || 'bg-gray-100 text-gray-800'}`}>
                                 {prediction.method}
                             </span>
                         </div>
+
+                        {prediction.tips && prediction.tips.length > 0 && (
+                            <div className="pt-2">
+                                <span className="text-gray-600 text-sm font-medium">Eco-friendly Suggestions</span>
+                                <ul className="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
+                                    {prediction.tips.map((tip, idx) => (
+                                        <li key={idx}>{tip}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        <button
+                            onClick={handleVoiceGuidance}
+                            className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl font-medium transition-colors"
+                        >
+                            <Volume2 className="w-5 h-5" />
+                            Voice Guidance
+                        </button>
+                    </div>
+                ) : errorMsg ? (
+                    <div className="w-full space-y-4 mt-auto bg-red-50 p-6 rounded-xl border border-red-100 flex items-center justify-center text-red-600 font-medium text-center shadow-sm">
+                        {errorMsg}
                     </div>
                 ) : (
                     <div className="text-gray-400 text-center mt-auto py-8">Upload an image to see the classification results</div>
