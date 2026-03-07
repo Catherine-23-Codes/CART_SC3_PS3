@@ -111,6 +111,22 @@
       "confidence": 0.9498,
       "location": "Unknown",
       "timestamp": "2026-03-07T06:32:01.530Z"
+    },
+    {
+      "id": "1772885675509",
+      "image": "image-1772885674997-944534245.png",
+      "category": "Glass",
+      "confidence": 0.9234,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T12:14:35.509Z"
+    },
+    {
+      "id": "1772885702428",
+      "image": "image-1772885702355-433516548.png",
+      "category": "Plastic",
+      "confidence": 0.8889,
+      "location": "Unknown",
+      "timestamp": "2026-03-07T12:15:02.428Z"
     }
   ],
   "eco_points": [
@@ -204,6 +220,20 @@
       "points": 10,
       "action": "upload_waste",
       "date": "2026-03-07T06:32:01.542Z"
+    },
+    {
+      "id": "1772885675580",
+      "userId": "1772882625246",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T12:14:35.580Z"
+    },
+    {
+      "id": "1772885702442",
+      "userId": "1772882625246",
+      "points": 10,
+      "action": "upload_waste",
+      "date": "2026-03-07T12:15:02.442Z"
     }
   ],
   "users": [
@@ -225,6 +255,13 @@
       "email": "aishwaryaamin.cse@skit.org.in",
       "googleId": "105442649118369135068",
       "ecoPoints": 80
+    },
+    {
+      "id": "1772882625246",
+      "name": "catherine",
+      "email": "pranithaa180@gmail.com",
+      "password": "aishu@#168",
+      "ecoPoints": 20
     }
   ]
 }

@@ -116,7 +116,14 @@ export default function SecondLife() {
                             <p className="text-green-50 mb-8">
                                 We are always looking for better ways to reuse everyday items. Share your project and earn 50 Eco-Points instantly!
                             </p>
-                            <button className="w-full py-3.5 bg-white text-eco font-extrabold rounded-xl shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all transform hover:-translate-y-0.5">
+                            <button
+                                onClick={() => {
+                                    const idea = window.prompt("Briefly describe your eco-hack:");
+                                    if (idea) {
+                                        window.alert("Awesome idea! You've earned 50 Eco-Points! It has been submitted for review.");
+                                    }
+                                }}
+                                className="w-full py-3.5 bg-white text-eco font-extrabold rounded-xl shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all transform hover:-translate-y-0.5">
                                 Submit Upcycle Idea
                             </button>
                         </div>

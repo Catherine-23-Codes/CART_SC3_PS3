@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// Use the permanent HTTPS tunnel for Vercel deployment!
+const API_BASE_URL = 'https://ecosort-backend-2026.loca.lt/api';
+
+// Globally bypass the local tunnel warning screen so AI images upload perfectly!
+axios.defaults.headers.common['Bypass-Tunnel-Reminder'] = 'true';
+axios.defaults.headers.common['localtunnel-skip-warning'] = 'true';
 
 export const uploadWasteImage = async (file: File) => {
     const formData = new FormData();
